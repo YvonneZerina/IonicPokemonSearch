@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Search
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,63 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large">Search</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-item>
+    <ion-select [(ngModel)]="search_type" placeholder="検索">
+      <ion-select-option value="name">名前から</ion-select-option>
+      <ion-select-option value="number">番号から</ion-select-option>
+      <ion-select-option value="type">タイプから</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-input
+      *ngIf="search_type === 'name'"
+      type="text"
+      fill="solid"
+      label="名前"
+      labelPlacement="floating"
+      [(ngModel)]="input_name_value"
+    ></ion-input>
+    <ion-input
+      *ngIf="search_type === 'number'"
+      type="number"
+      fill="solid"
+      label="図鑑番号"
+      labelPlacement="floating"
+      [(ngModel)]="input_number_value"
+    ></ion-input>
+    <ion-select
+      *ngIf="search_type === 'type'"
+      [(ngModel)]="input_type_value"
+      placeholder="検索">
+      <ion-select-option
+        *ngFor="let type of types"
+        value="{{type.id}}">
+        {{type.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <div class="search-button-wrapper">
+    <ion-button (click)="search()">
+      <ion-icon name="search"></ion-icon>
+      検索
+    </ion-button>
+  </div>
+
+  <div *ngIf="0 < search_result_pokemons.length">
+    <ion-item>
+      <h2>検索結果</h2>
+    </ion-item>
+    <ion-card *ngFor="let pokemon of search_result_pokemons" (click)="clickPokemon(pokemon)">
+      <ion-card-header>
+        <ion-card-title>
+          {{pokemon_name[pokemon['pokemon']['name']]}}
+        </ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </div>
 </ion-content>

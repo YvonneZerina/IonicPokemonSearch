@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,36 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Home</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Pokemon Search App</ion-card-title>
+      <ion-card-subtitle>Blog第一弾</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        こんにちは。
+      </p>
+      <br> <!-- CSSでデザインを治 -->
+      <p>
+        <font color="red">※</font> このアプリは最新のポケモンに対応していません。
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-item>
+    <h1>履歴</h1>
+  </ion-item>
+
+  <ion-card *ngFor="let pokemon of history">
+    <ion-card-header>
+      <ion-card-title>{{pokemon_name[pokemon.name]}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <img src="{{pokemon.sprites.front_default}}">
+    </ion-card-content>
+  </ion-card>
 </ion-content>
